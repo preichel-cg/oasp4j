@@ -44,6 +44,8 @@ import io.oasp.gastronomy.restaurant.offermanagement.logic.api.to.ProductFilter;
 import io.oasp.gastronomy.restaurant.offermanagement.logic.api.to.ProductSearchCriteriaTo;
 import io.oasp.gastronomy.restaurant.offermanagement.logic.api.to.ProductSortBy;
 import io.oasp.gastronomy.restaurant.offermanagement.logic.api.to.SideDishEto;
+import io.oasp.gastronomy.restaurant.offermanagement.logic.api.to.SpecialEto;
+import io.oasp.gastronomy.restaurant.offermanagement.logic.api.to.SpecialSearchCriteriaTo;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 
 /**
@@ -497,6 +499,34 @@ public class OffermanagementImpl extends AbstractComponentFacade implements Offe
   public void setSideDishDao(SideDishDao sideDishDao) {
 
     this.sideDishDao = sideDishDao;
+  }
+
+  @Override
+  public SpecialEto findSpecial(Long id) {
+
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public PaginatedListTo<SpecialEto> findSpecialEtos(SpecialSearchCriteriaTo criteria) {
+
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public boolean deleteSpecial(Long specialId) {
+
+    // TODO Auto-generated method stub
+    return false;
+  }
+
+  @Override
+  public SpecialEto saveSpecial(SpecialEto special) {
+
+    // TODO Auto-generated method stub
+    return null;
   }
 
 }
