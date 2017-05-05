@@ -50,3 +50,5 @@ INSERT INTO STAFFMEMBER (id, login, role, firstname, lastname, modificationCount
 INSERT INTO STAFFMEMBER (id, login, role, firstname, lastname, modificationCounter) VALUES (1, 'cook', 0, 'Carl', 'Cook', 0);
 INSERT INTO STAFFMEMBER (id, login, role, firstname, lastname, modificationCounter) VALUES (2, 'waiter', 1, 'Willy', 'Waiter', 0);
 INSERT INTO STAFFMEMBER (id, login, role, firstname, lastname, modificationCounter) VALUES (3, 'barkeeper', 2, 'Bianca', 'Barkeeper', 0);
+
+INSERT INTO SPECIAL (id, modificationCounter, name, offer_id, startingDay, startingHour, endingDay, endingHour, specialPrice) VALUES (0, 1, 'Happy Hour', 1, 'MONDAY', 18, 'MONDAY', 21, 4.99);
