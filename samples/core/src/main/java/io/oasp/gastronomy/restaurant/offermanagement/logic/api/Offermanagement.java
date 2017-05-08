@@ -20,12 +20,14 @@ import io.oasp.gastronomy.restaurant.offermanagement.logic.api.to.ProductSortBy;
 import io.oasp.gastronomy.restaurant.offermanagement.logic.api.to.SideDishEto;
 import io.oasp.gastronomy.restaurant.offermanagement.logic.api.to.SpecialEto;
 import io.oasp.gastronomy.restaurant.offermanagement.logic.api.to.SpecialSearchCriteriaTo;
+import io.oasp.gastronomy.restaurant.offermanagement.logic.api.usecase.UcFindSpecial;
+import io.oasp.gastronomy.restaurant.offermanagement.logic.api.usecase.UcManageSpecial;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 
 /**
  * Interface for OfferManagement.
  */
-public interface Offermanagement {
+public interface Offermanagement extends UcFindSpecial, UcManageSpecial {
 
   /**
    * Gets an {@link OfferEto} using its entity identifier.
