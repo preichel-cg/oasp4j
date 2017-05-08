@@ -24,4 +24,9 @@ public interface UcFindSpecial {
    */
   PaginatedListTo<SpecialEto> findSpecialEtos(SpecialSearchCriteriaTo criteria);
 
+  /**
+   * @return
+   */
+  List<SpecialEto> findAllSpecials();
+
 }

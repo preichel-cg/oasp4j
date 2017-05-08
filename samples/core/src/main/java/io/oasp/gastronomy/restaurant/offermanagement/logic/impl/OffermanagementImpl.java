@@ -520,29 +520,32 @@ public class OffermanagementImpl extends AbstractComponentFacade implements Offe
   @Override
   public SpecialEto findSpecial(Long id) {
 
-    // TODO Auto-generated method stub
-    return null;
+    return this.ucFindSpecial.findSpecial(id);
   }
 
   @Override
   public PaginatedListTo<SpecialEto> findSpecialEtos(SpecialSearchCriteriaTo criteria) {
 
-    // TODO Auto-generated method stub
-    return null;
+    return this.ucFindSpecial.findSpecialEtos(criteria);
   }
 
   @Override
   public boolean deleteSpecial(Long specialId) {
 
-    // TODO Auto-generated method stub
-    return false;
+    return this.ucManageSpecial.deleteSpecial(specialId);
   }
 
   @Override
   public SpecialEto saveSpecial(SpecialEto special) {
 
-    // TODO Auto-generated method stub
-    return null;
+    return this.ucManageSpecial.saveSpecial(special);
+  }
+
+  @Override
+  @RolesAllowed(PermissionConstants.FIND_OFFER)
+  public List<SpecialEto> findAllSpecials() {
+
+    return this.ucFindSpecial.findAllSpecials();
   }
 
 }

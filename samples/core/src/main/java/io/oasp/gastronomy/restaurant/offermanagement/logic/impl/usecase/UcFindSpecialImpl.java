@@ -1,5 +1,7 @@
 package io.oasp.gastronomy.restaurant.offermanagement.logic.impl.usecase;
 
+import java.util.List;
+
 import javax.inject.Named;
 
 import org.slf4j.Logger;
@@ -38,6 +40,15 @@ public class UcFindSpecialImpl extends AbstractSpecialUc implements UcFindSpecia
     criteria.limitMaximumPageSize(MAXIMUM_HIT_LIMIT);
     PaginatedListTo<SpecialEntity> specials = getSpecialDao().findSpecials(criteria);
     return mapPaginatedEntityList(specials, SpecialEto.class);
+  }
+
+  @Override
+  public List<SpecialEto> findAllSpecials() {
+
+    // List<Long> ids = Arrays.asList(0l, 1l);
+    // return getBeanMapper().mapList(getSpecialDao().findAll(ids), SpecialEto.class);
+    LOG.debug("Get all specials from database.");
+    return getBeanMapper().mapList(getSpecialDao().findAll(), SpecialEto.class);
   }
 
 }

@@ -7,7 +7,7 @@ import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.path.EntityPathBase;
 
 import io.oasp.gastronomy.restaurant.general.common.api.datatype.Money;
-import io.oasp.gastronomy.restaurant.general.dataaccess.base.dao.ApplicationDaoImpl;
+import io.oasp.gastronomy.restaurant.general.dataaccess.base.dao.ApplicationMasterDataDaoImpl;
 import io.oasp.gastronomy.restaurant.offermanagement.dataaccess.api.SpecialEntity;
 import io.oasp.gastronomy.restaurant.offermanagement.dataaccess.api.dao.SpecialDao;
 import io.oasp.gastronomy.restaurant.offermanagement.logic.api.to.SpecialSearchCriteriaTo;
@@ -18,7 +18,8 @@ import io.oasp.module.jpa.common.api.to.PaginatedListTo;
  * This is the implementation of {@link SpecialDao}.
  */
 @Named
-public class SpecialDaoImpl extends ApplicationDaoImpl<SpecialEntity> implements SpecialDao {
+// public class SpecialDaoImpl extends ApplicationDaoImpl<SpecialEntity> implements SpecialDao {
+public class SpecialDaoImpl extends ApplicationMasterDataDaoImpl<SpecialEntity> implements SpecialDao {
 
   /**
    * The constructor.

@@ -4,11 +4,13 @@ import io.oasp.gastronomy.restaurant.general.dataaccess.api.dao.ApplicationDao;
 import io.oasp.gastronomy.restaurant.offermanagement.dataaccess.api.SpecialEntity;
 import io.oasp.gastronomy.restaurant.offermanagement.logic.api.to.SpecialSearchCriteriaTo;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
+import io.oasp.module.jpa.dataaccess.api.MasterDataDao;
 
 /**
  * Data access interface for Special entities
  */
-public interface SpecialDao extends ApplicationDao<SpecialEntity> {
+// public interface SpecialDao extends ApplicationDao<SpecialEntity> {
+public interface SpecialDao extends ApplicationDao<SpecialEntity>, MasterDataDao<SpecialEntity> {
 
   /**
    * Finds the {@link SpecialEntity specials} matching the given {@link SpecialSearchCriteriaTo}.

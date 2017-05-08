@@ -254,4 +254,9 @@ public interface Offermanagement extends UcFindSpecial, UcManageSpecial {
    */
   SpecialEto saveSpecial(SpecialEto special);
 
+  /**
+   * @return the {@link List} with all {@link io.oasp.gastronomy.restaurant.offermanagement.common.api.Special}s.
+   */
+  List<SpecialEto> findAllSpecials();
+
 }
