@@ -7,8 +7,12 @@
 <!--   <include resource="io/oasp/logging/logback/appenders-file-all.xml" /> -->
 <!--   <include resource="io/oasp/logging/logback/appender-console.xml" /> -->
 
--<appender class="ch.qos.logback.core.ConsoleAppender" name="CONSOLE_APPENDER">
-  -<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+<appender class="ch.qos.logback.core.ConsoleAppender" name="CONSOLE_APPENDER">
+  <!-- Filter from https://github.com/javabeanz/owasp-security-logging/wiki/Filtering -->
+  <filter class="org.owasp.security.logging.filter.ExcludeClassifiedMarkerFilter"/>
+  <!--   Filter to only show security events: -->
+  <!--   <filter class="org.owasp.security.logging.filter.SecurityMarkerFilter"/> -->
+  <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
     <pattern>[D: %d{ISO8601}] [P: %-5p] [L: %c] - [M: %m] - [C: %X{correlationId}] [T: %t]  %n</pattern>
   </encoder>
 </appender>

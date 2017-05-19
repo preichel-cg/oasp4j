@@ -14,6 +14,7 @@ import javax.validation.Valid;
 import net.sf.mmm.util.exception.api.ObjectMismatchException;
 import net.sf.mmm.util.exception.api.ObjectNotFoundUserException;
 
+import org.owasp.security.logging.SecurityMarkers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -89,6 +90,14 @@ public class OffermanagementImpl extends AbstractComponentFacade implements Offe
     LOG.debug("Get OfferEto with id '{}' from database (debug).", id);
     LOG.info("Get OfferEto with id '{}' from database (info).", id);
     LOG.warn("Get OfferEto with id '{}' from database (warn).", id);
+
+    LOG.info(SecurityMarkers.CONFIDENTIAL, "Confidential message.");
+    LOG.warn(SecurityMarkers.SECRET, "SECRET message: needs to be encrypted before it gets logged.");
+    LOG.info(SecurityMarkers.SECURITY_MARKER_NAME, "Unspecified Security message.");
+    LOG.info(SecurityMarkers.SECURITY_SUCCESS, "Security success message.");
+    LOG.debug(SecurityMarkers.SECURITY_FAILURE, "Security FAILURE message (debug).");
+    LOG.warn(SecurityMarkers.SECURITY_FAILURE, "Security FAILURE message (warn).");
+    LOG.error(SecurityMarkers.EVENT_FAILURE, "Event FAILURE message (error).");
 
     return getBeanMapper().map(getOfferDao().findOne(id), OfferEto.class);
   }

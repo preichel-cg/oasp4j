@@ -28,6 +28,16 @@
       <artifactId>oasp4j-logging</artifactId>
     </dependency>
 
+    <!-- security logging with OWASP -->
+    <!-- https://mvnrepository.com/artifact/org.owasp/security-logging -->
+    <!-- https://github.com/javabeanz/owasp-security-logging/wiki -->
+    <!-- In order to use OWASP Security Logging with Logback, add the following Maven dependency: -->
+    <dependency>
+      <groupId>org.owasp</groupId>
+      <artifactId>security-logging-logback</artifactId>
+      <version>1.1.2</version>
+    </dependency>
+
     <dependency>
       <groupId>io.oasp.java.modules</groupId>
       <artifactId>oasp4j-beanmapping</artifactId>
