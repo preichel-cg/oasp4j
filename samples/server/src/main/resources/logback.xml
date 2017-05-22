@@ -1,27 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Configuration file for logback -->
 <configuration scan="true" scanPeriod="60 seconds">
-<!--   <property resource="io/oasp/logging/logback/application-logging.properties" /> -->
-<!--   <property name="appname" value="restaurant"/> -->
-<!--   <property name="logPath" value="../logs"/> -->
+  <property resource="io/oasp/logging/logback/application-logging.properties" />
+  <property name="appname" value="restaurant"/>
+  <property name="logPath" value="../logs"/>
+  <property name="secureLogFile" value="secure_log_${HOSTNAME}_${appname}"/>
 <!--   <include resource="io/oasp/logging/logback/appenders-file-all.xml" /> -->
 <!--   <include resource="io/oasp/logging/logback/appender-console.xml" /> -->
 
-<appender class="ch.qos.logback.core.ConsoleAppender" name="CONSOLE_APPENDER">
-  <!-- Filter from https://github.com/javabeanz/owasp-security-logging/wiki/Filtering -->
-  <filter class="org.owasp.security.logging.filter.ExcludeClassifiedMarkerFilter"/>
-  <!--   Filter to only show security events: -->
-  <!--   <filter class="org.owasp.security.logging.filter.SecurityMarkerFilter"/> -->
-  <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-    <pattern>[D: %d{ISO8601}] [P: %-5p] [L: %c] - [M: %m] - [C: %X{correlationId}] [T: %t]  %n</pattern>
-  </encoder>
-</appender>
+  <!-- MarkerFilters from https://github.com/javabeanz/owasp-security-logging/wiki/Filtering -->
+  <appender name="SECUR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <File>${logPath}/${secureLogFile}.log</File>
+    <filter class="org.owasp.security.logging.filter.SecurityMarkerFilter"/>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${logPath}/${secureLogFile}_${rollingPattern}${rollingSuffix}.log</fileNamePattern>
+      <maxHistory>${rollingAppenderMaxHistory}</maxHistory>
+    </rollingPolicy>
+    <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+      <layout class="io.oasp.module.logging.common.impl.SingleLinePatternLayout">
+        <pattern>SECURITY ${logPattern}</pattern>
+      </layout>
+    </encoder>
+  </appender>
+
+  <appender name="INFO_FILE_NO_CLASSIF" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <File>${logPath}/${infoLogFile}.log</File>
+    <filter class="org.owasp.security.logging.filter.ExcludeClassifiedMarkerFilter"/>
+<!--     <filter class="org.owasp.security.logging.filter.MarkerFilter"> -->
+<!--       <marker>SECURITY FAILURE</marker> -->
+<!--       <onMatch>DENY</onMatch> -->
+<!--     </filter> -->
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>INFO</level>
+    </filter>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${logPath}/${infoLogFile}_${rollingPattern}${rollingSuffix}.log</fileNamePattern>
+      <maxHistory>${rollingAppenderMaxHistory}</maxHistory>
+    </rollingPolicy>
+    <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+      <layout class="io.oasp.module.logging.common.impl.SingleLinePatternLayout">
+        <pattern>${logPattern}</pattern>
+      </layout>
+    </encoder>
+  </appender>
+
+  <appender  name="FULL_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+      <pattern>[D: %d{ISO8601}] [P: %-5p] [L: %c] - [M: %m] - [C: %X{correlationId}] [T: %t]  %n</pattern>
+    </encoder>
+  </appender>
+
 
   <root level="INFO">
-<!--     <appender-ref ref="ERROR_APPENDER"/> -->
-<!--     <appender-ref ref="INFO_APPENDER"/> -->
-<!--     <appender-ref ref="DEBUG_APPENDER"/> -->
-    <appender-ref ref="CONSOLE_APPENDER"/>
+    <appender-ref ref="SECUR_FILE"/>
+    <appender-ref ref="INFO_FILE_NO_CLASSIF"/>
+    <appender-ref ref="FULL_CONSOLE"/>
   </root>
 
   <!-- Set project logger level, this supersedes the 'root' level -->
