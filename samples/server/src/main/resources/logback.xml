@@ -26,10 +26,6 @@
   <appender name="INFO_FILE_NO_CLASSIF" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <File>${logPath}/${infoLogFile}.log</File>
     <filter class="org.owasp.security.logging.filter.ExcludeClassifiedMarkerFilter"/>
-<!--     <filter class="org.owasp.security.logging.filter.MarkerFilter"> -->
-<!--       <marker>SECURITY FAILURE</marker> -->
-<!--       <onMatch>DENY</onMatch> -->
-<!--     </filter> -->
     <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
       <level>INFO</level>
     </filter>

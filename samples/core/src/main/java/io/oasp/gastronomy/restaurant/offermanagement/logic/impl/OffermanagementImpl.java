@@ -14,15 +14,14 @@ import javax.validation.Valid;
 import net.sf.mmm.util.exception.api.ObjectMismatchException;
 import net.sf.mmm.util.exception.api.ObjectNotFoundUserException;
 
-import org.owasp.security.logging.SecurityMarkers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.Marker;
 
 import io.oasp.gastronomy.restaurant.general.common.api.constants.PermissionConstants;
 import io.oasp.gastronomy.restaurant.general.logic.api.to.BinaryObjectEto;
 import io.oasp.gastronomy.restaurant.general.logic.base.AbstractComponentFacade;
 import io.oasp.gastronomy.restaurant.general.logic.base.UcManageBinaryObject;
+import io.oasp.gastronomy.restaurant.general.service.impl.config.SecureLogging;
 import io.oasp.gastronomy.restaurant.offermanagement.common.api.Product;
 import io.oasp.gastronomy.restaurant.offermanagement.common.api.datatype.ProductType;
 import io.oasp.gastronomy.restaurant.offermanagement.common.api.exception.OfferEmptyException;
@@ -92,19 +91,21 @@ public class OffermanagementImpl extends AbstractComponentFacade implements Offe
     LOG.info("Get OfferEto with id '{}' from database (info).", id);
     LOG.warn("Get OfferEto with id '{}' from database (warn).", id);
 
-    // Create a MultiMarker. The predefined filters 'SecurityMarkerFilter' and 'ExcludeClassifiedMarkerFilter'
-    // can make use of this. Unfortunately, 'MarkerFilter' cannot be configured to do so.
-    Marker markSecurFailConf =
-        SecurityMarkers.getMarker(SecurityMarkers.SECURITY_FAILURE, SecurityMarkers.CONFIDENTIAL);
-    LOG.info("Created multimarker with name '{}'.", markSecurFailConf.getName());
+    LOG.info(SecureLogging.SECUR_SUCC, "Security Success message.");
+    LOG.info(SecureLogging.CONF, "CONFIDENTIAL message.");
 
-    LOG.info(SecurityMarkers.CONFIDENTIAL, "CONFIDENTIAL message.");
-    LOG.warn(SecurityMarkers.SECRET, "SECRET message: needs to be encrypted before it gets logged.");
-    LOG.info(SecurityMarkers.SECURITY_SUCCESS, "Security success message.");
-    LOG.info(SecurityMarkers.SECURITY_FAILURE, "Confidential Security FAILURE message (sec-failure-marker).");
-    LOG.info(SecurityMarkers.CONFIDENTIAL, "Confidential Security FAILURE message (confidential-marker).");
-    LOG.info(markSecurFailConf, "Confidential Security FAILURE message (multi-marker).");
-    LOG.error(SecurityMarkers.EVENT_FAILURE, "Event FAILURE message (error).");
+    LOG.info(SecureLogging.SECUR_FAIL_CONF,
+        "Confidential Security FAILURE message (via SecureLogging.SECUR_FAIL_CONF).");
+
+    // LOG.info(SecurityMarkers.CONFIDENTIAL, "CONFIDENTIAL message.");
+    // LOG.warn(SecurityMarkers.SECRET, "SECRET message: needs to be encrypted before it gets logged.");
+    // LOG.info(SecurityMarkers.SECURITY_SUCCESS, "Security success message.");
+    // LOG.info(SecurityMarkers.SECURITY_FAILURE, "Confidential Security FAILURE message (sec-failure-marker).");
+    // LOG.info(SecurityMarkers.CONFIDENTIAL, "Confidential Security FAILURE message (confidential-marker).");
+    // LOG.info(markSecurFailConf, "Confidential Security FAILURE message (multi-marker).");
+    // LOG.error(SecurityMarkers.EVENT_FAILURE, "Event FAILURE message (error).");
+
+    LOG.info("Done logging...");
 
     return getBeanMapper().map(getOfferDao().findOne(id), OfferEto.class);
   }
