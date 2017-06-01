@@ -5,6 +5,7 @@
   <property name="appname" value="restaurant"/>
   <property name="logPath" value="../logs"/>
   <property name="secureLogFile" value="secure_log_${HOSTNAME}_${appname}"/>
+  <property name="logPattern" value="[%marker] ${logPattern}"/>
 <!--   <include resource="io/oasp/logging/logback/appenders-file-all.xml" /> -->
 <!--   <include resource="io/oasp/logging/logback/appender-console.xml" /> -->
 
@@ -18,7 +19,7 @@
     </rollingPolicy>
     <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
       <layout class="io.oasp.module.logging.common.impl.SingleLinePatternLayout">
-        <pattern>SECURITY ${logPattern}</pattern>
+        <pattern>${logPattern}</pattern>
       </layout>
     </encoder>
   </appender>
@@ -42,7 +43,14 @@
 
   <appender  name="FULL_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
     <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-      <pattern>[D: %d{ISO8601}] [P: %-5p] [L: %c] - [M: %m] - [C: %X{correlationId}] [T: %t]  %n</pattern>
+      <pattern>${logPattern}</pattern>
+    </encoder>
+  </appender>
+
+  <appender  name="SECUR_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <filter class="org.owasp.security.logging.filter.SecurityMarkerFilter"/>
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+      <pattern>${logPattern}</pattern>
     </encoder>
   </appender>
 
@@ -51,6 +59,7 @@
     <appender-ref ref="SECUR_FILE"/>
     <appender-ref ref="INFO_FILE_NO_CLASSIF"/>
     <appender-ref ref="FULL_CONSOLE"/>
+    <appender-ref ref="SECUR_CONSOLE"/>
   </root>
 
   <!-- Set project logger level, this supersedes the 'root' level -->

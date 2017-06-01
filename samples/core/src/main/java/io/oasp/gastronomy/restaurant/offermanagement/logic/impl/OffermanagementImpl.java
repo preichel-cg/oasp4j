@@ -91,19 +91,9 @@ public class OffermanagementImpl extends AbstractComponentFacade implements Offe
     LOG.info("Get OfferEto with id '{}' from database (info).", id);
     LOG.warn("Get OfferEto with id '{}' from database (warn).", id);
 
-    LOG.info(SecureLogging.SECUR_SUCC, "Security Success message.");
-    LOG.info(SecureLogging.CONF, "CONFIDENTIAL message.");
-
-    LOG.info(SecureLogging.SECUR_FAIL_CONF,
-        "Confidential Security FAILURE message (via SecureLogging.SECUR_FAIL_CONF).");
-
-    // LOG.info(SecurityMarkers.CONFIDENTIAL, "CONFIDENTIAL message.");
-    // LOG.warn(SecurityMarkers.SECRET, "SECRET message: needs to be encrypted before it gets logged.");
-    // LOG.info(SecurityMarkers.SECURITY_SUCCESS, "Security success message.");
-    // LOG.info(SecurityMarkers.SECURITY_FAILURE, "Confidential Security FAILURE message (sec-failure-marker).");
-    // LOG.info(SecurityMarkers.CONFIDENTIAL, "Confidential Security FAILURE message (confidential-marker).");
-    // LOG.info(markSecurFailConf, "Confidential Security FAILURE message (multi-marker).");
-    // LOG.error(SecurityMarkers.EVENT_FAILURE, "Event FAILURE message (error).");
+    LOG.info(SecureLogging.SECURITY_SUCCESS, "Security success message.");
+    LOG.info(SecureLogging.CONFIDENTIAL, "Confidential message.");
+    LOG.info(SecureLogging.SECURITY_FAILURE_CONFIDENTIAL, "Confidential Security Failure message.");
 
     LOG.info("Done logging...");
 

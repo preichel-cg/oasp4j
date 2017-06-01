@@ -24,15 +24,15 @@ public class SecureLogging {
 
   private static String methodName = "getMarker";
 
-  private static String methodParam = "";
+  private static String methodParam = ""; // not implemented.
 
   private static boolean initialized = false;
 
-  private static Marker markerSecSuccConf = null;
+  private static Marker markerSecurSuccConfid = null;
 
-  private static Marker markerSecFailConf = null;
+  private static Marker markerSecurFailConfid = null;
 
-  private static Marker markerSecAuditConf = null;
+  private static Marker markerSecurAuditConfid = null;
 
   private static final String CONFIDENTIAL_MARKER_NAME = "CONFIDENTIAL";
 
@@ -51,52 +51,52 @@ public class SecureLogging {
   /**
    * Marker for Confidential log events.
    */
-  public static final Marker CONF = MarkerFactory.getDetachedMarker(CONFIDENTIAL_MARKER_NAME);
+  public static final Marker CONFIDENTIAL = MarkerFactory.getDetachedMarker(CONFIDENTIAL_MARKER_NAME);
 
   /**
    * Marker for Security Success log events.
    */
-  public static final Marker SECUR_SUCC = MarkerFactory.getDetachedMarker(SECURITY_SUCCESS_MARKER_NAME);
+  public static final Marker SECURITY_SUCCESS = MarkerFactory.getDetachedMarker(SECURITY_SUCCESS_MARKER_NAME);
 
   /**
    * Marker for Security Failure log events.
    */
-  public static final Marker SECUR_FAIL = MarkerFactory.getDetachedMarker(SECURITY_FAILURE_MARKER_NAME);
+  public static final Marker SECURITY_FAILURE = MarkerFactory.getDetachedMarker(SECURITY_FAILURE_MARKER_NAME);
 
   /**
    * Marker or MultiMarker for Confidential Security Success log events.
    */
-  public static final Marker SECUR_SUCC_CONF = getMarkerSecSuccConf();
+  public static final Marker SECURITY_SUCCESS_CONFIDENTIAL = getMarkerSecurSuccConfid();
 
   /**
    * Marker or MultiMarker for Confidential Security Failure log events.
    */
-  public static final Marker SECUR_FAIL_CONF = getMarkerSecFailConf();
+  public static final Marker SECURITY_FAILURE_CONFIDENTIAL = getMarkerSecurFailConfid();
 
   /**
    * Marker or MultiMarker for Confidential Security Audit log events.
    */
-  public static final Marker SECUR_AUDIT_CONF = getMarkerSecAuditConf();
+  public static final Marker SECURITY_AUDIT_CONFIDENTIAL = getMarkerSecurAuditConfid();
 
   private SecureLogging() {
   }
 
-  private static Marker getMarkerSecSuccConf() {
+  private static Marker getMarkerSecurSuccConfid() {
 
     initMarkers();
-    return markerSecSuccConf;
+    return markerSecurSuccConfid;
   }
 
-  private static Marker getMarkerSecFailConf() {
+  private static Marker getMarkerSecurFailConfid() {
 
     initMarkers();
-    return markerSecFailConf;
+    return markerSecurFailConfid;
   }
 
-  private static Marker getMarkerSecAuditConf() {
+  private static Marker getMarkerSecurAuditConfid() {
 
     initMarkers();
-    return markerSecAuditConf;
+    return markerSecurAuditConfid;
   }
 
   /**
@@ -118,16 +118,16 @@ public class SecureLogging {
     if (!initialized)
       LOG.warn("SecureLogging Markers could not be initialized!");
     else
-      LOG.debug("SecureLogging Markers created: '{}', ...", markerSecSuccConf.getName());
+      LOG.debug("SecureLogging Markers created: '{}', ...", markerSecurSuccConfid.getName());
     return;
   }
 
   private static void createDefaultMarkers() {
 
     LOG.debug("Creating default markers.");
-    markerSecSuccConf = MarkerFactory.getDetachedMarker(SECURITY_SUCCESS_CONFIDENTIAL_MARKER_NAME);
-    markerSecFailConf = MarkerFactory.getDetachedMarker(SECURITY_FAILURE_CONFIDENTIAL_MARKER_NAME);
-    markerSecAuditConf = MarkerFactory.getDetachedMarker(SECURITY_AUDIT_CONFIDENTIAL_MARKER_NAME);
+    markerSecurSuccConfid = MarkerFactory.getDetachedMarker(SECURITY_SUCCESS_CONFIDENTIAL_MARKER_NAME);
+    markerSecurFailConfid = MarkerFactory.getDetachedMarker(SECURITY_FAILURE_CONFIDENTIAL_MARKER_NAME);
+    markerSecurAuditConfid = MarkerFactory.getDetachedMarker(SECURITY_AUDIT_CONFIDENTIAL_MARKER_NAME);
     initialized = true;
   }
 
@@ -139,15 +139,15 @@ public class SecureLogging {
     try {
       objExtClass = cExtClass.newInstance();
       Class<?>[] paramTypes = { Marker[].class }; // the method to invoke is "getMarker(Marker... markers)".
-      Method m = cExtClass.getMethod(methodName, paramTypes);
+      Method method = cExtClass.getMethod(methodName, paramTypes);
 
-      Marker[] combineMarkers = { MarkerFactory.getDetachedMarker(SECURITY_SUCCESS_MARKER_NAME),
+      Marker[] markerArray = { MarkerFactory.getDetachedMarker(SECURITY_SUCCESS_MARKER_NAME),
       MarkerFactory.getDetachedMarker(CONFIDENTIAL_MARKER_NAME) };
-      markerSecSuccConf = (Marker) m.invoke(objExtClass, (Object) combineMarkers);
-      combineMarkers[0] = MarkerFactory.getDetachedMarker(SECURITY_FAILURE_MARKER_NAME);
-      markerSecFailConf = (Marker) m.invoke(objExtClass, (Object) combineMarkers);
-      combineMarkers[0] = MarkerFactory.getDetachedMarker(SECURITY_AUDIT_MARKER_NAME);
-      markerSecAuditConf = (Marker) m.invoke(objExtClass, (Object) combineMarkers);
+      markerSecurSuccConfid = (Marker) method.invoke(objExtClass, (Object) markerArray);
+      markerArray[0] = MarkerFactory.getDetachedMarker(SECURITY_FAILURE_MARKER_NAME);
+      markerSecurFailConfid = (Marker) method.invoke(objExtClass, (Object) markerArray);
+      markerArray[0] = MarkerFactory.getDetachedMarker(SECURITY_AUDIT_MARKER_NAME);
+      markerSecurAuditConfid = (Marker) method.invoke(objExtClass, (Object) markerArray);
       initialized = true;
 
     } catch (Exception e) {
